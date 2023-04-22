@@ -1,0 +1,26 @@
+package jYates;
+import java.util.Scanner;
+public class tempConverter {
+
+	public static void main(String[] args) {
+		Scanner scnr = new Scanner(System.in);
+		double inputF;
+		double outputC;
+		double inputC;
+		double outputF;
+		
+		System.out.println("Please enter the temperature in Fahrenheit: ");
+		inputF = scnr.nextDouble();
+		outputC = (inputF - 32) * 5 / 9;
+		
+		System.out.println("The temperature in Celsius is: " + outputC);
+		System.out.println("Enter the temperature in Celsius: ");
+		inputC = scnr.nextDouble();
+		outputF =(inputC * 9 / 5) + 32;
+		
+		System.out.println("The temperature in Fahrenheit is: " + outputF);
+		
+
+	}
+
+}
