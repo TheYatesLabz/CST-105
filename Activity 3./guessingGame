@@ -1,0 +1,36 @@
+package guessingGame;
+import java.util.Random;
+import java.util.Scanner;
+
+public class guessingGame {
+
+	public static void main(String[] args) {
+	Random rand = new Random();
+	int magicNumber = rand.nextInt(10000) + 1;
+	int min = 1;
+	int max = 10000;
+	Scanner scnr = new Scanner(System.in);
+	
+	while(true) {
+		System.out.println("Enter a number between " + min + " and " + max + ": ");
+		int guess = scnr.nextInt();
+		
+		if (guess < magicNumber) {
+			System.out.println("HIGHER");
+			min = guess + 1;
+		}
+		
+		else if (guess > magicNumber) {
+			System.out.println("LOWER");
+			max = guess - 1;
+		}
+		
+		else {
+			System.out.println("You guessed the magic number!");
+			break;
+		}
+	}
+		scnr.close();
+	}
+
+}
