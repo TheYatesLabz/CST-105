@@ -1,0 +1,72 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Scanner;
+import java.util.Random;
+
+
+//contribution goal collection
+public class Main {
+    public static final double goal = 10000000.0 + 1;
+//using io.File added FileNotFoundException
+    public static void main(String[] args) throws FileNotFoundException {
+        File input = new File("input.in");
+        //Clear input file with every run
+        if (input.exists()) {
+            input.delete();
+        }
+        try {
+            PrintWriter inputGenerate = new PrintWriter("input.in");
+            Random rng = new Random();
+            double total = 0.0;
+            while (total < goal) {
+                double contribution = rng.nextDouble() * 1000.0;
+                inputGenerate.printf("%.2f\n", contribution);
+                total += contribution;
+            }
+            inputGenerate.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        double total = 0.0;
+        double smallest = Double.POSITIVE_INFINITY;
+        double largest = Double.NEGATIVE_INFINITY;
+        int count = 0;
+        try {
+            Scanner scnr = new Scanner(new File("input.in"));
+            //Write Results.out file
+            PrintWriter write = new PrintWriter("results.out");
+            double contribution;
+            do {
+                contribution = scnr.nextDouble();
+                if (total + contribution < goal) {
+                    count++;
+                    total += contribution;
+                    smallest = Math.min(smallest, contribution);
+                    largest = Math.max(largest, contribution);
+                }
+            } while (scnr.hasNextDouble() && contribution > 0 && total < goal) ;
+                double avg = (count > 0) ? total / count : 0.0;
+                write.printf("Number of contributions: %d\n", count);
+                write.printf("Largest contribution: %.2f\n", largest);
+                write.printf("Smallest contribution: %.2f\n", smallest);
+                write.printf("Average contribution: %.2f\n", avg);
+                write.printf("Total contributions: %.2f\n", total);
+
+                System.out.printf("Number of contributions: %d\n", count);
+                System.out.printf("Largest contribution: %.2f\n", largest);
+                System.out.printf("Smallest contribution: %.2f\n", smallest);
+                System.out.printf("Average contribution: %.2f\n", avg);
+                System.out.printf("Total contributions: %.2f\n", total);
+                scnr.close();
+                write.close();
+            } catch(FileNotFoundException e){
+                e.printStackTrace();
+            }
+
+
+        }
+    }
