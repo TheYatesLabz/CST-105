@@ -1,0 +1,54 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        //Open input and output files.
+        File input = new File("src/input.in");
+        File output = new File("results.out");
+        Scanner scnr = null;
+        PrintWriter pw = null;
+
+        try {
+            scnr = new Scanner(input);
+            pw = new PrintWriter(output);
+
+            //Read input and perform encryption.
+            while (scnr.hasNext()) {
+                String wrd = scnr.next();
+                String encrypt = encryptWord(wrd);
+
+                //Print input and output to console
+                System.out.printf("%-15s %-15s%n", wrd.toUpperCase(), encrypt.toUpperCase());
+
+                //Write output
+                pw.printf("%-15s %-15s%n", wrd.toUpperCase(), encrypt.toUpperCase());
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } finally {
+            //Close input/output.
+            if (scnr != null) {
+                scnr.close();
+            }
+            if (pw != null) {
+                pw.close();
+            }
+        }
+    }
+    //Encryption process
+    private static String encryptWord (String wrd) {
+        int n = wrd.length();
+        if (n % 2 == 0) {
+            //word has even number
+            int mid = n / 2;
+            return wrd.substring(mid) + wrd.substring(0, mid);
+        } else {
+            //word has odd number
+            int mid = (n + 1) / 2;
+            return wrd.substring(mid) + wrd.substring(0, mid);
+        }
+    }
+}
